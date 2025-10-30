@@ -1,0 +1,114 @@
+Batch run started: Thu, Oct 30, 2025  8:18:37 PM
+Matchup: Pacman='quang_agent' vs Ghost='example_student'
+Total runs: 100
+----------------------------------------
+
+Game 1: ghost_wins
+Game 2: pacman_wins
+Game 3: ghost_wins
+Game 4: ghost_wins
+Game 5: ghost_wins
+Game 6: ghost_wins
+Game 7: pacman_wins
+Game 8: pacman_wins
+Game 9: ghost_wins
+Game 10: ghost_wins
+Game 11: ghost_wins
+Game 12: ghost_wins
+Game 13: pacman_wins
+Game 14: ghost_wins
+Game 15: pacman_wins
+Game 16: ghost_wins
+Game 17: ghost_wins
+Game 18: pacman_wins
+Game 19: ghost_wins
+Game 20: ghost_wins
+Game 21: pacman_wins
+Game 22: ghost_wins
+Game 23: ghost_wins
+Game 24: ghost_wins
+Game 25: pacman_wins
+Game 26: ghost_wins
+Game 27: ghost_wins
+Game 28: pacman_wins
+Game 29: ghost_wins
+Game 30: pacman_wins
+Game 31: ghost_wins
+Game 32: ghost_wins
+Game 33: ghost_wins
+Game 34: ghost_wins
+Game 35: ghost_wins
+Game 36: pacman_wins
+Game 37: ghost_wins
+Game 38: ghost_wins
+Game 39: ghost_wins
+Game 40: ghost_wins
+Game 41: pacman_wins
+Game 42: ghost_wins
+Game 43: pacman_wins
+Game 44: ghost_wins
+Game 45: pacman_wins
+Game 46: ghost_wins
+Game 47: pacman_wins
+Game 48: ghost_wins
+Game 49: pacman_wins
+Game 50: pacman_wins
+Game 51: pacman_wins
+Game 52: ghost_wins
+Game 53: pacman_wins
+Game 54: pacman_wins
+Game 55: ghost_wins
+Game 56: ghost_wins
+Game 57: pacman_wins
+Game 58: pacman_wins
+Game 59: pacman_wins
+Game 60: pacman_wins
+Game 61: pacman_wins
+Game 62: ghost_wins
+Game 63: ghost_wins
+Game 64: ghost_wins
+Game 65: pacman_wins
+Game 66: ghost_wins
+Game 67: ghost_wins
+Game 68: ghost_wins
+Game 69: ghost_wins
+Game 70: ghost_wins
+Game 71: ghost_wins
+Game 72: ghost_wins
+Game 73: pacman_wins
+Game 74: ghost_wins
+Game 75: ghost_wins
+Game 76: pacman_wins
+Game 77: ghost_wins
+Game 78: pacman_wins
+Game 79: pacman_wins
+Game 80: pacman_wins
+Game 81: ghost_wins
+Game 82: pacman_wins
+Game 83: ghost_wins
+Game 84: ghost_wins
+Game 85: pacman_wins
+Game 86: pacman_wins
+Game 87: ghost_wins
+Game 88: ghost_wins
+Game 89: ghost_wins
+Game 90: ghost_wins
+Game 91: ghost_wins
+Game 92: pacman_wins
+Game 93: pacman_wins
+Game 94: pacman_wins
+Game 95: pacman_wins
+Game 96: pacman_wins
+Game 97: pacman_wins
+Game 98: ghost_wins
+Game 99: ghost_wins
+Game 100: pacman_wins
+
+----------------------------------------
+FINAL STATISTICS:
+Total games    : 100
+Pacman wins    : 41 (41.0%)
+Ghost wins     : 59 (59.0%)
+Draws          : 0 (0.0%)
+Errors         : 0
+Batch run finished: Thu, Oct 30, 2025  8:19:15 PM

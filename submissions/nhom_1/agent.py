@@ -40,12 +40,11 @@ class PacmanAgent(BasePacmanAgent):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # TODO: Initialize any data structures you need
-        # Examples:
-        # - self.path = []  # Store planned path
-        # - self.visited = set()  # Track visited positions
-        # - self.name = "Your Agent Name"
-        pass
+        # Path caching để tránh tính toán lại mỗi step
+        self.current_path = []
+        self.last_enemy_pos = None
+        
+        print("🔵 Pacman Agent: A* search with path replanning activated!")
 
     def step(
         self,
@@ -55,8 +54,13 @@ class PacmanAgent(BasePacmanAgent):
         step_number: int,
     ) -> Move:
         """
-        Decide the next move.
-
+        🎯 A* SEARCH với PATH REPLANNING
+        
+        Chiến lược:
+        1. Chỉ replan khi cần thiết (Ghost di chuyển xa hoặc chưa có path)
+        2. Follow cached path để tiết kiệm tính toán
+        3. A* đảm bảo luôn tìm được đường ngắn nhất
+        
         Args:
             map_state: 2D numpy array where 1=wall, 0=empty
             my_position: Your current (row, col)
@@ -66,28 +70,43 @@ class PacmanAgent(BasePacmanAgent):
         Returns:
             Move: One of Move.UP, Move.DOWN, Move.LEFT, Move.RIGHT, Move.STAY
         """
-        # TODO: Implement your search algorithm here
-
-        # Example: Simple greedy approach (replace with your algorithm)
-        row_diff = enemy_position[0] - my_position[0]
-        col_diff = enemy_position[1] - my_position[1]
-
-        # Try to move towards ghost
-        if abs(row_diff) > abs(col_diff):
-            move = Move.DOWN if row_diff > 0 else Move.UP
-        else:
-            move = Move.RIGHT if col_diff > 0 else Move.LEFT
-
-        # Check if move is valid
-        if self._is_valid_move(my_position, move, map_state):
-            return move
-
-        # If not valid, try other moves
+        
+        # Điều kiện replan:
+        # 1. Chưa có path
+        # 2. Lần đầu chạy (chưa biết vị trí Ghost trước đó)
+        # 3. Ghost di chuyển đáng kể (> 2 cells) - có thể đổi hướng
+        should_replan = (
+            not self.current_path or 
+            self.last_enemy_pos is None or
+            self._manhattan_distance(enemy_position, self.last_enemy_pos) > 2
+        )
+        
+        if should_replan:
+            # Tính path mới bằng A*
+            self.current_path = self._astar(my_position, enemy_position, map_state)
+            self.last_enemy_pos = enemy_position
+        
+        # Follow cached path
+        if self.current_path:
+            next_move = self.current_path.pop(0)
+            return next_move
+        
+        # Fallback: Không tìm được đường (không thể xảy ra trong map liên thông)
+        # Thử di chuyển gần Ghost nhất
+        best_move = Move.STAY
+        best_distance = float('inf')
+        
         for move in [Move.UP, Move.DOWN, Move.LEFT, Move.RIGHT]:
-            if self._is_valid_move(my_position, move, map_state):
-                return move
-
-        return Move.STAY
+            dr, dc = move.value
+            new_pos = (my_position[0] + dr, my_position[1] + dc)
+            
+            if self._is_valid_position(new_pos, map_state):
+                distance = self._manhattan_distance(new_pos, enemy_position)
+                if distance < best_distance:
+                    best_distance = distance
+                    best_move = move
+        
+        return best_move
 
     # Helper methods (you can add more)
 
@@ -106,6 +125,64 @@ class PacmanAgent(BasePacmanAgent):
             return False
 
         return map_state[row, col] == 0
+    
+    def _manhattan_distance(self, pos1, pos2):
+        """Tính khoảng cách Manhattan giữa 2 vị trí."""
+        return abs(pos1[0] - pos2[0]) + abs(pos1[1] - pos2[1])
+    
+    def _astar(self, start, goal, map_state):
+        """
+        A* Search: Tìm đường ngắn nhất từ start đến goal.
+        
+        A* = Best-First Search + Heuristic
+        f(n) = g(n) + h(n)
+        - g(n): Cost từ start đến n (số bước đã đi)
+        - h(n): Heuristic ước lượng từ n đến goal (Manhattan distance)
+        
+        Args:
+            start: Vị trí bắt đầu (row, col)
+            goal: Vị trí đích (row, col)
+            map_state: Bản đồ
+            
+        Returns:
+            List[Move]: Danh sách các bước đi, hoặc [] nếu không tìm được
+        """
+        from heapq import heappush, heappop
+        
+        # Priority queue: (f_cost, g_cost, position, path)
+        # g_cost để break tie khi f_cost bằng nhau
+        frontier = [(0, 0, start, [])]
+        visited = set()
+        
+        while frontier:
+            f_cost, g_cost, current_pos, path = heappop(frontier)
+            
+            # Đến đích!
+            if current_pos == goal:
+                return path
+            
+            # Đã thăm rồi → bỏ qua
+            if current_pos in visited:
+                continue
+            
+            visited.add(current_pos)
+            
+            # Explore 4 hướng
+            for move in [Move.UP, Move.DOWN, Move.LEFT, Move.RIGHT]:
+                dr, dc = move.value
+                next_pos = (current_pos[0] + dr, current_pos[1] + dc)
+                
+                # Kiểm tra valid và chưa thăm
+                if next_pos not in visited and self._is_valid_position(next_pos, map_state):
+                    new_path = path + [move]
+                    new_g_cost = len(new_path)  # Cost từ start (số bước)
+                    h_cost = self._manhattan_distance(next_pos, goal)  # Heuristic
+                    new_f_cost = new_g_cost + h_cost  # Total cost
+                    
+                    heappush(frontier, (new_f_cost, new_g_cost, next_pos, new_path))
+        
+        # Không tìm được đường
+        return []
 
 
 class GhostAgent(BaseGhostAgent):
@@ -145,10 +222,14 @@ class GhostAgent(BaseGhostAgent):
         
         # Vùng nguy hiểm : Nếu gần Pacman (<=6) → dùng Minimax để chọn nước đi tốt nhất
         if distance_to_pacman <= 6:
+            depth = 3  # Gần - depth trung bình
+            if distance_to_pacman <= 3:
+                depth = 4  # Rất gần - depth cao
+                
             #Gọi minimax với depth=3
             _, best_move = self._minimax(
                 my_position, enemy_position, 
-                depth=3,  # Nhìn trước 3 bước
+                depth=depth,  # Nhìn trước 3 bước
                 is_ghost_turn=True, 
                 map_state=map_state
             )
