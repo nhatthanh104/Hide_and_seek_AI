@@ -1,0 +1,64 @@
+Batch run started: Thu, Oct 30, 2025  4:48:18 PM
+Matchup: Pacman='example_student' vs Ghost='nhom_1'
+Total runs: 50
+----------------------------------------
+
+Game 1: ghost_wins
+Game 2: ghost_wins
+Game 3: ghost_wins
+Game 4: ghost_wins
+Game 5: ghost_wins
+Game 6: ghost_wins
+Game 7: ghost_wins
+Game 8: ghost_wins
+Game 9: ghost_wins
+Game 10: ghost_wins
+Game 11: ghost_wins
+Game 12: ghost_wins
+Game 13: ghost_wins
+Game 14: ghost_wins
+Game 15: ghost_wins
+Game 16: ghost_wins
+Game 17: ghost_wins
+Game 18: ghost_wins
+Game 19: ghost_wins
+Game 20: ghost_wins
+Game 21: ghost_wins
+Game 22: ghost_wins
+Game 23: ghost_wins
+Game 24: ghost_wins
+Game 25: ghost_wins
+Game 26: ghost_wins
+Game 27: ghost_wins
+Game 28: ghost_wins
+Game 29: ghost_wins
+Game 30: ghost_wins
+Game 31: ghost_wins
+Game 32: ghost_wins
+Game 33: ghost_wins
+Game 34: ghost_wins
+Game 35: ghost_wins
+Game 36: ghost_wins
+Game 37: ghost_wins
+Game 38: ghost_wins
+Game 39: ghost_wins
+Game 40: ghost_wins
+Game 41: ghost_wins
+Game 42: ghost_wins
+Game 43: ghost_wins
+Game 44: ghost_wins
+Game 45: ghost_wins
+Game 46: ghost_wins
+Game 47: ghost_wins
+Game 48: ghost_wins
+Game 49: ghost_wins
+Game 50: ghost_wins
+
+----------------------------------------
+FINAL STATISTICS:
+Total games    : 50
+Pacman wins    : 0 (0.0%)
+Ghost wins     : 50 (100.0%)
+Draws          : 0 (0.0%)
+Errors         : 0
+Batch run finished: Thu, Oct 30, 2025  4:48:56 PM
